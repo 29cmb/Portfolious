@@ -1,5 +1,5 @@
 {
-  "name": "portfolio-maker",
+  "name": "portfolious",
   "version": "1.0.0",
   "description": "An easy-to-use system to create portfolios for your projects",
   "main": "index.js",
@@ -9,17 +9,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/29cmb/portfolio-maker.git"
+    "url": "git+https://github.com/29cmb/Portfolious.git"
   },
   "author": "DevCmb",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/29cmb/portfolio-maker/issues"
+    "url": "https://github.com/29cmb/Portfolious/issues"
   },
-  "homepage": "https://github.com/29cmb/portfolio-maker#readme",
+  "homepage": "https://github.com/29cmb/Portfoliousr#readme",
   "dependencies": {
     "discord.js": "^12.0.0",
     "dotenv": "^16.3.1",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "mysql": "^2.18.1"
   }
 }
