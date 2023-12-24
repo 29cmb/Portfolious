@@ -4,15 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolious</title>
-    <link href="/styles/index.css" rel="stylesheet">
+    <link href="/styles/signup.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/216730d71d.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="topbar">
-        <a id="Home" class="selected" href="/">Home</a>
-        <a id="Signup" href="/signup.html">Sign up</a>
+        <a id="Home" href="/">Home</a>
+        <a id="Signup" class="selected">Sign up</a>
     </div>
-    <h1 id="Title">Portfolious</h1>
+    <h1 id="Title">Sign up</h1>
+    <form class="signupFrame" onsubmit="signup()">
+        <input type="email" placeholder="Email" required>
+        <br>
+        <input type="text" placeholder="Username" required>
+        <br>
+        <input type="password" placeholder="Password" required>
+        <br>
+        <input type="submit">
+    </form>
+    
     <div class="bottombar">
         <div class="social-icons">
             <a href="https://twitter.com/DevCmb"><i class="fa-brands fa-x-twitter"></i></a>

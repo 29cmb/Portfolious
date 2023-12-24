@@ -30,7 +30,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px; /* Adjust padding as needed */
+    padding: 8px; 
 }
 
 .bottombar .social-icons {
@@ -61,7 +61,7 @@ p {
 }
 
 .fa-brands {
-    padding: 10px; /* Adjust the padding as needed */
+    padding: 10px;
     color: white;
     font-size: 30px;
 }
@@ -73,4 +73,15 @@ p {
 
 .topbar .selected {
     color: lightskyblue
+}
+
+.signupFrame {
+    text-align: center;
+    justify-content: center;
+  flex-direction: column;
+}
+
+input {
+    margin-bottom: 7px;
+    text-align: center;
 }
