@@ -11,6 +11,7 @@ body {
 .topbar {
     background-color: #3b3b3b;
     overflow: hidden;
+    
 }
 
 .bottombar {
@@ -67,7 +68,7 @@ p {
 }
 
 .topbar a:hover {
-    color:aqua;
+    color:lightskyblue;
     transition: all 1s ease
 }
 
