@@ -4,8 +4,11 @@ module.exports = function(app){
         var { cookie } = req.body
         const db = require("../../db.js")
 
-        cookie = cookie.substring(0, cookie.indexOf('_.') !== -1 ? cookie.indexOf('_.') : cookie.length)
+        if (!cookie) {
+            return res.status(400).json({ success: false, message: 'Missing required fields' });
+        }
 
+        cookie = cookie.substring(0, cookie.indexOf('_.') !== -1 ? cookie.indexOf('_.') : cookie.length)
         db.getConnection(function(err,connection){
             if (err) {
                 console.log(`💣 [API] | Error connecting to the database. ${err}`)

@@ -5,6 +5,11 @@ module.exports = function(app){
         console.log(`📫 [API] | /signup posted`)
         const db = require("../db.js")
         const { email, username, password } = req.body
+
+        if (!email || !username || !password) {
+            return res.status(400).json({ success: false, message: 'Missing required fields' });
+        }
+
         db.getConnection(function(err, connection){
             if (err) {
                 console.log(`💣 [API] | Error connecting to the database. ${err}`)
