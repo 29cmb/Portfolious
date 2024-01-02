@@ -1,14 +1,13 @@
 const crypto = require("node:crypto")
 module.exports = function(app){
-    console.log(`✅ [API] | /signup is set up`)
     require('dotenv').config()
     app.post('/api/v1/signup', function(req, res){
         console.log(`📫 [API] | /signup posted`)
-        const db = require("../db/setup.js")
+        const db = require("../db.js")
         const { email, username, password } = req.body
         db.getConnection(function(err, connection){
             if (err) {
-                console.log(`💣 [API] | Error connecting to the datbase. ${error}`)
+                console.log(`💣 [API] | Error connecting to the datbase. ${err}`)
             }
             db.query('SELECT * FROM UserDatabase WHERE Email = ? OR Username = ?', [email, username], function(error, results, fields) {
                 if (error) {
@@ -36,12 +35,20 @@ module.exports = function(app){
                         connection.release();
                         return res.status(500).json({ success: false, message: 'Database error' });
                     }
-                    db.query('INSERT INTO UserDatabase (UserId, Email, Username, EncryptedPassword, Admin) VALUES (?, ?, ?, ?, 0)', [(f_results[0].UserId + 1), email, username, pw])
+                    var cookie = "!do_not_share!portfolious_login:"
+                    cookie += generateCookie(64);
+                    db.query('INSERT INTO UserDatabase (UserId, Email, Username, EncryptedPassword, session, Admin) VALUES (?, ?, ?, ?, ?, 0)', [(f_results[0].UserId + 1), email, username, pw, cookie])
                     connection.release()
                     console.log(`✅ [API] | Signup successful`)
+                    
                     return res.status(201).json({ success: true, message: 'User registered successfully', user: [(f_results[0].UserId + 1), email, username, pw, 0] });
                 })
             })
         })
     })
+    console.log(`✅ [API] | /signup is set up`)
+}
+
+function generateCookie(length){
+    return crypto.randomBytes(Math.ceil(length / 2)).toString('hex').slice(0, length);
 }

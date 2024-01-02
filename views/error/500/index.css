@@ -1,0 +1,86 @@
+* {
+    font-family: 'Kanit', sans-serif;
+}
+
+body {
+    margin: 0;
+}
+
+.topbar {
+    background-color: #3b3b3b;
+    overflow: hidden;
+}
+
+.bottombar {
+    background-color: #3b3b3b;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px; /* Adjust padding as needed */
+}
+
+.bottombar .social-icons {
+    display: flex;
+}
+
+.bottombar p {
+    color: white;
+    text-align: right;
+    margin: 0;
+    padding-right: 25px;
+}
+
+.topbar a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+#Title,
+h2 {
+    text-align: center;
+}
+
+p {
+    text-align: center;
+}
+
+.fa-brands {
+    padding: 10px; /* Adjust the padding as needed */
+    color: white;
+    font-size: 30px;
+}
+
+.topbar a:hover {
+    color: lightskyblue;
+    transition: all 1s ease;
+}
+
+.topbar .selected {
+    color: lightskyblue;
+}
+
+/* Custom styles for 404 page */
+.error-404 {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.error-404 h2 {
+    color: #3b3b3b;
+    font-size: 72px;
+    margin: 0;
+}
+
+.error-404 p {
+    color: #666;
+    font-size: 18px;
+    margin: 10px 0;
+}

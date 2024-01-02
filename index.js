@@ -7,6 +7,21 @@ require("dotenv").config()
 app.use(express.static(path.join(__dirname, process.env.DIR)));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use((req, res, next) => {
+  if (req.method === 'GET') {
+    if (res.statusCode === 404) {
+      res.sendFile(path.join(__dirname, process.env.DIR, '/error/404/index.html'));
+    } else if (res.statusCode === 500) {
+      res.sendFile(path.join(__dirname, process.env.DIR, '/error/500/index.html'));
+    } else if (res.statusCode === 403) {
+      res.sendFile(path.join(__dirname, process.env.DIR, '/error/403/index.html'));
+    }
+  }
+  next();
+});
+
+
 app.listen(process.env.PORT, () => {
   console.log(`Running on localhost:${process.env.PORT}
   \n   _____           _    __      _ _                 
@@ -22,4 +37,5 @@ app.listen(process.env.PORT, () => {
 });
 
 
-require("./api/signup.js")(app)
+require("./api/signup.js")(app);
+require("./api/login.js")(app);

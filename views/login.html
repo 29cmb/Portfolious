@@ -6,19 +6,17 @@
     <title>Portfolious</title>
     <link href="/styles/signup.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/216730d71d.js" crossorigin="anonymous"></script>
-    <script src="/js/signup.js"></script>
+    <script src="/js/login.js"></script>
 </head>
 <body>
     <div class="topbar">
         <a id="Home" href="/">Home</a>
-        <a id="Login" href="/login.html">Log in</a>
-        <a id="Signup" class="selected" href="/signup.html">Sign up</a>
+        <a id="Login" class="selected" href="/login.html">Log in</a>
+        <a id="Signup" href="/signup.html">Sign up</a>
     </div>
-    <h1 id="Title">Sign up</h1>
-    <form class="signupFrame" onsubmit="signup(event)">
-        <input type="email" placeholder="Email" id="email" name="email" required>
-        <br>
-        <input type="text" placeholder="Username" id="username" name="username" required>
+    <h1 id="Title">Log in</h1>
+    <form class="signupFrame" onsubmit="login(event)">
+        <input type="text" placeholder="Email/Username" id="username" name="username" required>
         <br>
         <input type="password" placeholder="Password" id="password" name="password" required>
         <br>
