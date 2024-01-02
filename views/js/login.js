@@ -24,9 +24,9 @@ function login(event){
         loginButton.disabled = false;
         document.getElementById("status").innerHTML = returned.message 
         if(returned.success == true){
-            var generatedcookie = returned.cookie
-            document.cookie=`session=${generatedcookie}; expires=${new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toUTCString()}; path=/`
-            window.location.href = "/dashboard" 
+            var generatedCookie = returned.cookie
+            document.cookie=`session=${generatedCookie}; expires=${new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toUTCString()}; path=/`
+            window.location.href = "/dashboard"
         } else {
             document.getElementById("status").innerHTML = returned.message
         }
