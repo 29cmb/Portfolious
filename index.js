@@ -36,6 +36,6 @@ app.listen(process.env.PORT, () => {
   Database Setup: ${(process.env.dbName && process.env.dbUsername && process.env.dbHost && process.env.dbPassword) ? "Yes" : "No"}`);
 });
 
-
 require("./api/signup.js")(app);
 require("./api/login.js")(app);
+require("./api/universal/getUserFromCookie.js")(app);

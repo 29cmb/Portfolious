@@ -8,11 +8,11 @@ module.exports = function(app){
 
         db.getConnection(function(err, connection){
             if (err) {
-                console.log(`💣 [API] | Error connecting to the datbase. ${error}`)
+                console.log(`💣 [API] | Error connecting to the database. ${err}`)
             }
             db.query('SELECT * FROM UserDatabase WHERE Username = ? OR Email = ?', [username, username], function(error, results, fields){
                 if (error) {
-                    console.log(`💣 [API] | A database error has occured and login has failed. ${error}`)
+                    console.log(`💣 [API] | A database error has occurred and login has failed. ${error}`)
                     connection.release();
                     return res.status(500).json({ success: false, message: 'Database error' });
                 }
@@ -27,11 +27,13 @@ module.exports = function(app){
                         return res.status(201).json({ success: true, message: 'Signed in successfully', user: results[0], cookie: workingCookie});
                     } else {
                         console.log("❌ [API] | Incorrect password")
+                        connection.release()
                         return res.status(401).json({ success: false, message: 'Incorrect password' })
                     }
                 } else {
                     console.log("❌ [API] | User is not registered")
-                    return res.status(401).json({ success: false, message: 'Username not found' })
+                    connection.release()
+                    return res.status(401).json({ success: false, message: 'User not found' })
                 }
             })
         })

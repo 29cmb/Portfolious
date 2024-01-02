@@ -7,11 +7,11 @@ module.exports = function(app){
         const { email, username, password } = req.body
         db.getConnection(function(err, connection){
             if (err) {
-                console.log(`💣 [API] | Error connecting to the datbase. ${err}`)
+                console.log(`💣 [API] | Error connecting to the database. ${err}`)
             }
             db.query('SELECT * FROM UserDatabase WHERE Email = ? OR Username = ?', [email, username], function(error, results, fields) {
                 if (error) {
-                    console.log(`💣 [API] | A database error has occured and signup has failed. ${error}`)
+                    console.log(`💣 [API] | A database error has occurred and signup has failed. ${error}`)
                     connection.release();
                     return res.status(500).json({ success: false, message: 'Database error' });
                 }
@@ -31,7 +31,7 @@ module.exports = function(app){
                 const pw = crypto.createHmac("sha256", process.env.secret).update(password).digest('hex')
                 db.query('SELECT UserId FROM UserDatabase ORDER BY UserId DESC LIMIT 1', function(f_error, f_results, f_fields){
                     if(f_error){
-                        console.log(`💣 [API] | A database error has occured and signup has failed. ${f_error}`)
+                        console.log(`💣 [API] | A database error has occurred and signup has failed. ${f_error}`)
                         connection.release();
                         return res.status(500).json({ success: false, message: 'Database error' });
                     }

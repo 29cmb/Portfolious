@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolious</title>
+    <title>Dashboard</title>
+    <script src="../js/universal/check.js"></script>
+    <script>
+        runLoginCheck();
+    </script>
     <link href="/styles/index.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/216730d71d.js" crossorigin="anonymous"></script>
 </head>
@@ -11,10 +15,8 @@
     <div class="topbar">
         <a id="Home" href="/" class="selected">Home</a>
         <a id="Login" href="/login.html">Log in</a>
-        <a id="Dashboard" style="float:right;" href="/dashboard">Dashboard</a>
+        <a id="Dashboard" style="float:right;" class="selected" href="/dashboard">Dashboard</a>
     </div>
-    <h1 id="Title">Portfolious</h1>
-    <p>A easy-to-use tool to create portfolios for your projects</p>
     <div class="bottombar">
         <div class="social-icons">
             <a href="https://twitter.com/DevCmb"><i class="fa-brands fa-x-twitter"></i></a>
