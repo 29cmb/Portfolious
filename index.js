@@ -4,6 +4,17 @@ const bodyParser = require('body-parser');
 const app = express();
 require("dotenv").config()
 
+const { rateLimit } = require('express-rate-limit')
+
+const limiter = rateLimit({
+	windowMs: 60 * 1000,
+	max: 25, 
+	standardHeaders: true, 
+	legacyHeaders: false,
+  message: "You are sending too many requests. Please try again later." 
+})
+
+app.use('/api', limiter)
 app.use(express.static(path.join(__dirname, process.env.DIR)));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

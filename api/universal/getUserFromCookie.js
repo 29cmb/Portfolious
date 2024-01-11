@@ -16,7 +16,6 @@ module.exports = function(app){
             db.query(`SELECT * FROM UserDatabase WHERE session = ?`, [cookie], function(error, results){
                 if (error) {
                     console.log(`💣 [API] | A database error has occurred and checking has failed. ${error}`)
-                    connection.release();
                     return res.status(500).json({ success: false, message: 'Database error' });
                 }
 

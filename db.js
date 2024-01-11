@@ -10,4 +10,3 @@ const sql = mysql.createPool({
 })
 
 module.exports = sql
-
