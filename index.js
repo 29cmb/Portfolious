@@ -44,7 +44,7 @@ app.listen(process.env.PORT, () => {
                                                     
   Created by DevCmb
   Views Directory: ${process.env.DIR}
-  Database Setup: ${(process.env.dbName && process.env.dbUsername && process.env.dbHost && process.env.dbPassword) ? "Yes" : "No"}`);
+  Database Setup: ${(process.env.dbName && process.env.dbUsername && process.env.dbHost && process.env.dbPassword && process.env.dbUserDatabase) ? "Yes" : "No"}`);
 });
 
 require("./api/signup.js")(app);

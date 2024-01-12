@@ -7,12 +7,12 @@ module.exports = function (app) {
         const { email, username, password } = req.body
 
 
-        if (checkValidation() == true) {
+        if (checkValidation(email, username, password) == true) {
             db.getConnection(function (err, connection) {
                 if (err) {
                     console.log(`💣 [API] | Error connecting to the database. ${err}`)
                 }
-                db.query('SELECT * FROM UserDatabase WHERE Email = ? OR Username = ?', [email, username], function (error, results, fields) {
+                db.query('SELECT * FROM userdatabase WHERE Email = ? OR Username = ?', [email, username], function (error, results, fields) {
                     if (error) {
                         console.log(`💣 [API] | A database error has occurred and signup has failed. ${error}`)
                         connection.release();
@@ -32,7 +32,7 @@ module.exports = function (app) {
 
 
                     const pw = crypto.createHmac("sha256", process.env.secret).update(password).digest('hex')
-                    db.query('SELECT UserId FROM UserDatabase ORDER BY UserId DESC LIMIT 1', function (f_error, f_results, f_fields) {
+                    db.query('SELECT UserId FROM userdatabase ORDER BY UserId DESC LIMIT 1', function (f_error, f_results, f_fields) {
                         if (f_error) {
                             console.log(`💣 [API] | A database error has occurred and signup has failed. ${f_error}`)
                             connection.release();
@@ -40,11 +40,11 @@ module.exports = function (app) {
                         }
                         var cookie = "!do_not_share!portfolious_login:"
                         cookie += generateCookie(64);
-                        db.query('INSERT INTO UserDatabase (UserId, Email, Username, EncryptedPassword, session, Admin) VALUES (?, ?, ?, ?, ?, 0)', [(f_results[0].UserId + 1), email, username, pw, cookie])
+                        db.query('INSERT INTO UserDatabase (UserId, Email, Username, EncryptedPassword, session, Admin) VALUES (?, ?, ?, ?, ?, 0)', [((f_results[0].UserId + 1) || 1), email, username, pw, cookie])
                         connection.release()
                         console.log(`✅ [API] | Signup successful`)
 
-                        return res.status(201).json({ success: true, message: 'User registered successfully', user: [(f_results[0].UserId + 1), email, username, pw, 0] });
+                        return res.status(201).json({ success: true, message: 'User registered successfully', user: [((f_results[0].UserId + 1) || 1), email, username, pw, 0] });
                     })
                 })
             })
@@ -64,7 +64,7 @@ function isValidEmail(email) {
 }
 
 
-function checkValidation() {
+function checkValidation(email, username, password) {
     if (!email || !username || !password) {
         res.status(400).json({ success: false, message: 'Missing required fields' });
         return false

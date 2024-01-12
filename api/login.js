@@ -14,7 +14,7 @@ module.exports = function(app){
             if (err) {
                 console.log(`💣 [API] | Error connecting to the database. ${err}`)
             }
-            db.query('SELECT * FROM UserDatabase WHERE Username = ? OR Email = ?', [username, username], function(error, results, fields){
+            db.query('SELECT * FROM userdatabase WHERE Username = ? OR Email = ?', [username, username], function(error, results, fields){
                 if (error) {
                     console.log(`💣 [API] | A database error has occurred and login has failed. ${error}`)
                     connection.release();

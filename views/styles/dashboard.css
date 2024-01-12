@@ -114,3 +114,27 @@ p {
     color: lightskyblue
 }
 
+.main #portfolios {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Add this line to center vertically */
+    height: 100vh; /* Add this line to make .main take up the full viewport height */
+    padding-left: 400px; /* Adjust this value to the width of your sidebar */
+}
+
+.main #portfolios .portfolio {
+    width: 300px; /* Set the width to 50px */
+    height: 50vh; /* Set the height to 25% of the viewport height */
+    border: 1px solid #000; /* Add an outline */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add a drop shadow */
+    border-radius: 10px; /* Add rounded corners */
+    padding: 10px 2px; /* Add some padding and 2px right and left padding */
+    text-align:center;
+    margin: 10px; /* Add a 2px margin around each .portfolio div */
+    color:#f2f2f2;
+    background-color: #3b3b3b;
+}
+
+.main #portfolios .portfolio h2 {
+    border-bottom: 1px solid #494949; /* Add a border to the bottom of each button */
+}
