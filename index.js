@@ -50,3 +50,5 @@ app.listen(process.env.PORT, () => {
 require("./api/signup.js")(app);
 require("./api/login.js")(app);
 require("./api/universal/getUserFromCookie.js")(app);
+require("./api/portfolio.js")(app);
+require("./api/getPortfolio.js")(app);
