@@ -2,12 +2,26 @@ const crypto = require("node:crypto")
 module.exports = function (app) {
     require('dotenv').config()
     app.post('/api/v1/signup', function (req, res) {
+        profanityCheck()
         console.log(`📫 [API] | /signup posted`)
         const db = require("../db.js")
         const { email, username, password } = req.body
 
-
         if (checkValidation(email, username, password) == true) {
+            if (username.length > 25) {
+                console.log("❌ [API] | Username must be less than 25 characters")
+                return res.status(400).json({ success: false, message: 'Username must be less than 25 characters long' });
+            }
+    
+            if (username.length < 3) {
+                console.log("❌ [API] | Username must be more than 3 characters")
+                return res.status(400).json({ success: false, message: 'Username must be at least 3 characters long' });
+            }
+    
+            if(profanityCheck(username)){
+                console.log("❌ [API] | Username contains profanity")
+                return res.status(400).json({ success: false, message: "Username contains profanity"})
+            }
             db.getConnection(function (err, connection) {
                 if (err) {
                     console.log(`💣 [API] | Error connecting to the database. ${err}`)
@@ -48,6 +62,8 @@ module.exports = function (app) {
                     })
                 })
             })
+        } else {
+            console.log("❌ [API] Validation failed")
         }
     })
 
@@ -59,10 +75,29 @@ function generateCookie(length) {
 }
 
 function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email)
 }
 
+function profanityCheck(username) {
+    const request = require('request');
+    request.get({
+        url: `https://api.api-ninjas.com/v1/profanityfilter?text=${username}`,
+        headers: {
+            'X-Api-Key': process.env.apininjas
+        },
+    }, function (error, response, body) {
+        if (error){
+            console.error('💣 [API] | Request failed: ', error);
+            return false;
+       } else if (response.statusCode != 200) {
+            console.error('Error:', response.statusCode, body.toString('utf8'));
+           return false;
+       } else {
+           return body.has_profanity;
+       }
+    });
+}
 
 function checkValidation(email, username, password) {
     if (!email || !username || !password) {
