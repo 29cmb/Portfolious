@@ -1,7 +1,7 @@
 function runLoginCheck(){
 
     const body = {
-        cookie: getCookie("session") || ""
+        cookie: getCookie("session")
     }
 
     console.log(body)
@@ -17,7 +17,7 @@ function runLoginCheck(){
     .then(returned => {
         console.log(returned)
         if(returned.success === false){
-            window.location.href = "/login.html"
+           window.location.href = "/login.html"
         }
     })
 }
