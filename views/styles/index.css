@@ -38,6 +38,16 @@ body {
     display: flex;
 }
 
+.bottombar .social-icons a i {
+    color: #fff;
+    transition: all 0.7s ease;
+}
+
+.bottombar .social-icons a i:hover {
+    color: lightskyblue;
+    transition: all 0.5s ease;
+}
+
 .bottombar p {
     color: white;
     text-align: right;

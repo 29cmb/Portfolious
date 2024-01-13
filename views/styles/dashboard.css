@@ -58,6 +58,16 @@ body {
     display: flex;
 }
 
+.bottombar .social-icons a i {
+    color: #fff;
+    transition: all 0.7s ease;
+}
+
+.bottombar .social-icons a i:hover {
+    color: lightskyblue;
+    transition: all 0.5s ease;
+}
+
 .bottombar p {
     color: white;
     text-align: right;
@@ -102,7 +112,6 @@ p {
 }
 
 .topbar a:hover {
-    font-size: 20px;
     color:lightskyblue;
     transition: all 1s ease;
 }
@@ -133,8 +142,36 @@ p {
     margin: 10px; /* Add a 2px margin around each .portfolio div */
     color:#f2f2f2;
     background-color: #3b3b3b;
+    position: relative; 
 }
 
 .main #portfolios .portfolio h2 {
     border-bottom: 1px solid #494949; /* Add a border to the bottom of each button */
+}
+
+.main #portfolios .portfolio .icon {
+    width: 100px;
+}
+.main #portfolios .portfolio .portfolio-btn {
+    position: absolute;
+    bottom: 7px;
+    left: 50%;
+    width: 95%;
+    font-size: 20px; /* Adjust this value to make the button text bigger */
+    background-color: #000; /* Adjust this value to make the button darker */
+    color: #fff; /* Adjust this value to make the button text color contrast with the button color */
+    transform: translateX(-50%); /* This will center the button */
+    padding: 10px; /* Add some padding to increase the overall size of the button */
+    border: none;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    transition: all 0.5s ease;
+}
+
+.main #portfolios .portfolio .portfolio-btn:hover {
+    background-color: #f2f2f2;
+    color: #000;
+    transition: all 0.5s ease;
 }
