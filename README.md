@@ -17,18 +17,23 @@ Download an apache + mysql server host. I preferrably use [xampp](https://www.ap
 #### Step 2
 ***All following steps are based on xampp***
 
-Launch both the apache server and the mysql server 
+Launch both the apache server and the mysql server
+
 ![image](https://github.com/29cmb/Portfolious/assets/71194682/fd2542fe-4eed-40b4-b1b8-bba33f856444)
+
 Once it looks like the image above, go to `http://localhost/phpmyadmin/`and upload the `database.sql` file from the main directory
 
 #### Step 3
 
 Press the `User Accounts` button in the topbar and locate `root localhost` and press `Edit privileges`
+
 ![image](https://github.com/29cmb/Portfolious/assets/71194682/a89c0717-d92c-43c9-82a7-85bac4452533)
 
 #### Step 4
 Click "change password" and designate the root account a password
+
 ![image](https://github.com/29cmb/Portfolious/assets/71194682/6cd83295-18e2-4104-a960-023af512ceb8)
+
 After you've changed the password, go back to xampp and click Apache > Config > phpMyAdmin (config.inc.php) and change this line
 ```php
 $cfg['Servers'][$i]['password'] = 'yourNewPassword';
