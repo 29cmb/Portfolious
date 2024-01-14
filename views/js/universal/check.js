@@ -1,12 +1,13 @@
-function runLoginCheck(){
+async function runLoginCheck(){
 
     const body = {
         cookie: getCookie("session")
     }
 
-    console.log(body)
+    var success = false
 
-    fetch("/api/v1/universal/getUserFromCookie", {
+
+    await fetch("/api/universal/v1/getUserFromCookie", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -15,11 +16,12 @@ function runLoginCheck(){
     })
     .then(response => response.json())
     .then(returned => {
-        console.log(returned)
-        if(returned.success === false){
-           window.location.href = "/login.html"
-        }
+       success = returned.success
+        // if(returned.success === false){
+        //    window.location.href = "/login.html"
+        // }
     })
+    return success
 }
 
 

@@ -6,7 +6,10 @@
     <title>Dashboard</title>
     <script src="../js/universal/check.js"></script>
     <script>
-        runLoginCheck(); //TODO: move this to the main file
+        var response = runLoginCheck();
+        if(response === false){
+           window.location.href = "/login.html"
+        }
     </script>
     <link href="/styles/dashboard.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/216730d71d.js" crossorigin="anonymous"></script>
@@ -17,12 +20,12 @@
         <div class="content">
             <div class="topbar">
                 <a href="/">Home</a>
-                <a href="/login.html">Log in</a>
                 <a href="/dashboard" class="selected" style="float:right">Dashboard</a>
             </div>
         </div>  
         <div class="sidebar">
             <a href="/dashboard/portfolios.html">Portfolios</a>
+            <a href="#" id="logoutButton">Logout</a>
         </div>
         <div class="bottombar">
             <!-- Bottombar content goes here -->
@@ -34,4 +37,10 @@
         </div>
     </div>
 </body>
+<script>
+document.getElementById('logoutButton').addEventListener('click', function() {
+    document.cookie = "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    window.location.href = "/login.html";
+});
+</script>
 </html>

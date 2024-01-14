@@ -1,13 +1,12 @@
 const crypto = require("node:crypto")
-module.exports = function (app) {
+module.exports = async function (app) {
     require('dotenv').config()
-    app.post('/api/v1/signup', function (req, res) {
-        profanityCheck()
+    app.post('/api/v1/signup', async function (req, res) {
         console.log(`📫 [API] | /signup posted`)
         const db = require("../db.js")
         const { email, username, password } = req.body
 
-        if (checkValidation(email, username, password) == true) {
+        if (checkValidation(email, username, password, res) == true) {
             if (username.length > 25) {
                 console.log("❌ [API] | Username must be less than 25 characters")
                 return res.status(400).json({ success: false, message: 'Username must be less than 25 characters long' });
@@ -18,7 +17,7 @@ module.exports = function (app) {
                 return res.status(400).json({ success: false, message: 'Username must be at least 3 characters long' });
             }
     
-            if(profanityCheck(username)){
+            if(await profanityCheck(username)){
                 console.log("❌ [API] | Username contains profanity")
                 return res.status(400).json({ success: false, message: "Username contains profanity"})
             }
@@ -81,25 +80,26 @@ function isValidEmail(email) {
 
 function profanityCheck(username) {
     const request = require('request');
-    request.get({
-        url: `https://api.api-ninjas.com/v1/profanityfilter?text=${username}`,
-        headers: {
-            'X-Api-Key': process.env.apininjas
-        },
-    }, function (error, response, body) {
-        if (error){
-            console.error('💣 [API] | Request failed: ', error);
-            return false;
-       } else if (response.statusCode != 200) {
-            console.error('Error:', response.statusCode, body.toString('utf8'));
-           return false;
-       } else {
-           return body.has_profanity;
-       }
+    return new Promise((resolve, reject) => {
+        request.get({
+            url: `https://api.api-ninjas.com/v1/profanityfilter?text=${username}`,
+            headers: {
+                'X-Api-Key': process.env.apininjas
+            },
+        }, function (error, response, body) {
+            if (error || response.statusCode != 200) {
+                console.error('💣 [API] | Profanity request failed');
+                reject(false);
+            } else {
+                console.log(body);
+                const bodyJson = JSON.parse(body);
+                resolve(bodyJson.has_profanity);
+            }
+        });
     });
 }
 
-function checkValidation(email, username, password) {
+function checkValidation(email, username, password, res) {
     if (!email || !username || !password) {
         res.status(400).json({ success: false, message: 'Missing required fields' });
         return false

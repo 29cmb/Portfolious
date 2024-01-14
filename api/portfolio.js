@@ -1,5 +1,6 @@
 module.exports = function(app){
     app.get("/portfolio/:id", function(req, res){
+        console.log("📫 [API] | /portfolio/:id requested")
         const id = req.params.id;
         const db = require("../db.js");
 
@@ -19,7 +20,7 @@ module.exports = function(app){
                     // TODO: Send a file with that portfolio
                 } else {
                     connection.release();
-                    return res.status(404)
+                    return res.sendFile(path.join(__dirname, process.env.DIR, '/error/404/index.html'));
                 }
             })
         })

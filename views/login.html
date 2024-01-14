@@ -7,12 +7,23 @@
     <link href="/styles/signup.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/216730d71d.js" crossorigin="anonymous"></script>
     <script src="/js/login.js"></script>
+    <script src="/js/universal/check.js"></script>
+    <script>
+        async function run(){
+            var response = await runLoginCheck();
+            if(response == true){
+                window.location.href = "/dashboard"
+            }
+        }
+
+        run()
+        
+    </script>
 </head>
 <body>
     <div class="topbar">
         <a id="Home" href="/">Home</a>
         <a id="Login" class="selected" href="/login.html">Log in</a>
-        <a id="Dashboard" style="float:right;" href="/dashboard">Dashboard</a>
     </div>
     <h1 id="Title">Log in</h1>
     <form class="signupFrame" onsubmit="login(event)">

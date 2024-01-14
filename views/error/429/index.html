@@ -4,39 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolious</title>
-    <link href="/styles/signup.css" rel="stylesheet">
+    <link href="/styles/index.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/216730d71d.js" crossorigin="anonymous"></script>
-    <script src="/js/signup.js"></script>
     <script src="/js/universal/check.js"></script>
     <script>
         async function run(){
             var response = await runLoginCheck();
             if(response == true){
-                window.location.href = "/dashboard"
+                document.getElementById("login").style.display = "none";
+                document.getElementById("dashboard").style.display = "block";
             }
         }
+
         run()
+       
     </script>
 </head>
 <body>
     <div class="topbar">
-        <a id="Home" href="/">Home</a>
-        <a id="Login" href="/login.html">Log in</a>
+        <a id="Home" href="/" class="selected">Home</a>
+        <a id="login" href="/login.html">Log in</a>
+        <a id="dashboard" style="float:right;display:none;" href="/dashboard">Dashboard</a>
     </div>
-    <h1 id="Title">Sign up</h1>
-    <form class="signupFrame" onsubmit="signup(event)">
-        <input type="email" placeholder="Email" id="email" name="email" required>
-        <br>
-        <input type="text" placeholder="Username" id="username" name="username" required>
-        <br>
-        <input type="password" placeholder="Password" id="password" name="password" required>
-        <br>
-        <input type="submit">
-    </form>
-    <p id="status"></p>
-    <p id="login">Already have an account? Log in <a href="/login.html">here</a></p>
-    
-    
+    <h1 id="Title">Rate Limited (Error 429)</h1>
+    <p>You are sending requests too quickly.</p>
     <div class="bottombar">
         <div class="social-icons">
             <a href="https://twitter.com/DevCmb"><i class="fa-brands fa-twitter"></i></a>

@@ -1,7 +1,8 @@
 module.exports = function(app){
-    app.post('/api/v1/universal/getUserFromCookie', function(req, res){
+    app.post('/api/universal/v1/getUserFromCookie', function(req, res){
         console.log(`📫 [API] | /universal/getUserFromCookie posted`)
         var { cookie } = req.body
+        
         const db = require("../../db.js")
         if (!cookie) {
             return res.status(400).json({ success: false, message: 'Missing required fields' });
@@ -22,7 +23,6 @@ module.exports = function(app){
 
                 if(results[0]){
                     connection.release();
-
                     return res.status(201).json({ success: true, message: "Valid cookie", user: results[0] })
                 } else {
                     connection.release();

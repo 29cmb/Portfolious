@@ -6,15 +6,33 @@ require("dotenv").config()
 
 const { rateLimit } = require('express-rate-limit')
 
-const limiter = rateLimit({
+const selectiveLimiter = rateLimit({
 	windowMs: 60 * 1000,
-	max: 25, 
+	max: 15, 
 	standardHeaders: true, 
 	legacyHeaders: false,
-  message: "You are sending too many requests. Please try again later." 
+  message: function(req, res, next) {
+    console.log(`✉️ [API] | User is being rate limited by selectiveLimiter`)
+    return res.json({ success: false, message: "You are sending too many requests. Please try again later." });
+  }
 })
 
-app.use('/api', limiter)
+const universalLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 35,
+  standardHeaders: true,
+  legacyHeaders: false,
+})
+
+app.use('/api/universal/v1', universalLimiter, function(req, res, next) {
+  if (req.rateLimit.remaining === 0) {
+      console.log(`✉️ [API] | User is being rate limited by universalLimiter`)
+      return res.sendFile(path.join(__dirname, process.env.DIR, "/error/429/index.html"))
+  }
+  next();
+});
+app.use('/api/v1', selectiveLimiter)
+
 app.use(express.static(path.join(__dirname, process.env.DIR)));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

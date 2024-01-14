@@ -6,12 +6,25 @@
     <title>Portfolious</title>
     <link href="/styles/index.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/216730d71d.js" crossorigin="anonymous"></script>
+    <script src="/js/universal/check.js"></script>
+    <script>
+        async function run(){
+            var response = await runLoginCheck();
+            if(response == true){
+                document.getElementById("login").style.display = "none";
+                document.getElementById("dashboard").style.display = "block";
+            }
+        }
+
+        run()
+       
+    </script>
 </head>
 <body>
     <div class="topbar">
         <a id="Home" href="/" class="selected">Home</a>
-        <a id="Login" href="/login.html">Log in</a>
-        <a id="Dashboard" style="float:right;" href="/dashboard">Dashboard</a>
+        <a id="login" href="/login.html">Log in</a>
+        <a id="dashboard" style="float:right;display:none;" href="/dashboard">Dashboard</a>
     </div>
     <h1 id="Title">Portfolious</h1>
     <p>A easy-to-use tool to create portfolios for your projects</p>
