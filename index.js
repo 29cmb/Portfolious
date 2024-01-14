@@ -4,30 +4,44 @@ const bodyParser = require('body-parser');
 const app = express();
 require("dotenv").config()
 
+const fs = require('fs');
+
+const configDir = path.join(__dirname, '/config');
+const configFiles = fs.readdirSync(configDir);
+const config = {};
+
+configFiles.forEach(file => {
+    if (path.extname(file) === '.json') {
+        const filePath = path.join(configDir, file);
+        const fileData = fs.readFileSync(filePath, 'utf8');
+        const fileNameWithoutExt = path.basename(file, '.json');
+        config[fileNameWithoutExt] = JSON.parse(fileData);
+    }
+});
+
 const { rateLimit } = require('express-rate-limit')
 
 const selectiveLimiter = rateLimit({
-	windowMs: 60 * 1000,
-	max: 15, 
-	standardHeaders: true, 
-	legacyHeaders: false,
+	windowMs: config.rateLimits.selective.windowMs,
+	max: config.rateLimits.selective.max, 
+	standardHeaders: config.rateLimits.selective.standardHeaders, 
+	legacyHeaders: config.rateLimits.selective.legacyHeaders,
   message: function(req, res, next) {
-    console.log(`✉️ [API] | User is being rate limited by selectiveLimiter`)
-    return res.json({ success: false, message: "You are sending too many requests. Please try again later." });
+    console.log(config.rateLimits.selective.consoleMessage)
+    return res.json({ success: false, message: config.rateLimits.selective.jsonError });
   }
 })
 
 const universalLimiter = rateLimit({
-  windowMs: 60 * 1000,
-  max: 35,
-  standardHeaders: true,
-  legacyHeaders: false,
+  windowMs: config.rateLimits.universal.windowMs,
+  max: config.rateLimits.universal.max,
+  standardHeaders: config.rateLimits.universal.standardHeaders,
+  legacyHeaders: config.rateLimits.universal.legacyHeaders,
 })
 
 app.use('/api/universal/v1', universalLimiter, function(req, res, next) {
   if (req.rateLimit.remaining === 0) {
-      console.log(`✉️ [API] | User is being rate limited by universalLimiter`)
-      return res.sendFile(path.join(__dirname, process.env.DIR, "/error/429/index.html"))
+      console.log(config.rateLimits.universal.consoleMessage)
   }
   next();
 });
