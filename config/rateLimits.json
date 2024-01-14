@@ -1,5 +1,4 @@
 {
-    "developerMode": true,
     "selective": {
         "windowMs": 60000,
         "max": 15,
