@@ -39,13 +39,20 @@ const universalLimiter = rateLimit({
   legacyHeaders: config.rateLimits.universal.legacyHeaders,
 })
 
-app.use('/api/universal/v1', universalLimiter, function(req, res, next) {
-  if (req.rateLimit.remaining === 0) {
+
+if(config.rateLimits.rateLimitBypass == false){
+  console.log("✉️ [API] | Rate limiting enabled")
+  app.use('/api/universal/v1', universalLimiter, function(req, res, next) {
+    if (req.rateLimit.remaining === 0) {
       console.log(config.rateLimits.universal.consoleMessage)
-  }
-  next();
-});
-app.use('/api/v1', selectiveLimiter)
+    }
+    next();
+  });
+  app.use('/api/v1', selectiveLimiter)
+} else {
+  console.log("✉️ [API] | Rate limiting disabled")
+}
+
 
 app.use(express.static(path.join(__dirname, process.env.DIR)));
 app.use(bodyParser.json());
