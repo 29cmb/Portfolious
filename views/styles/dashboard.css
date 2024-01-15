@@ -23,6 +23,8 @@ body {
     display: flex; /* Use flexbox for layout */
     flex-direction: column; /* Arrange items from top to bottom */
     padding: 4px; /* Add padding */
+    overflow: hidden;
+    position: fixed;
 }
 
 
@@ -39,6 +41,7 @@ body {
     width: 100%;
     height: 60px; /* Adjust as needed */
     z-index: 1; /* This will keep the topbar above the sidebar */
+    position: fixed;
 }
 
 .bottombar {
@@ -51,6 +54,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 8px; /* Adjust padding as needed */
+    position: fixed;
 }
 
 .bottombar .social-icons {
@@ -141,7 +145,8 @@ p {
     margin: 10px; /* Add a 2px margin around each .portfolio div */
     color:#f2f2f2;
     background-color: #3b3b3b;
-    position: relative; 
+    position: relative;
+    overflow: hidden; 
 }
 
 .main #portfolios .portfolio h2 {

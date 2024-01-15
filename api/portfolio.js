@@ -1,6 +1,8 @@
+const path = require('path')
 module.exports = function(app){
-    app.get("/portfolio/:id", function(req, res){
-        console.log("📫 [API] | /portfolio/:id requested")
+    require('dotenv').config();
+    app.get("/portfolio/:id/view", function(req, res){
+        console.log("📫 [API] | /portfolio/:id/view requested")
         const id = req.params.id;
         const db = require("../db.js");
 
@@ -17,10 +19,10 @@ module.exports = function(app){
 
                 if(results[0]){
                     connection.release();
-                    // TODO: Send a file with that portfolio
+                    return res.sendFile(path.join(__dirname, `/../${process.env.DIR}/error/404/index.html`));
                 } else {
                     connection.release();
-                    return res.sendFile(path.join(__dirname, process.env.DIR, '/error/404/index.html'));
+                    return res.sendFile(path.join(__dirname, `/../${process.env.DIR}/error/404/index.html`));
                 }
             })
         })

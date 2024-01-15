@@ -1,10 +1,13 @@
+// Packages
 const express = require('express');
 const path = require('path')
 const bodyParser = require('body-parser');
 const app = express();
+const { rateLimit } = require('express-rate-limit')
 require("dotenv").config()
-
 const fs = require('fs');
+
+// JSON Configurations
 
 const configDir = path.join(__dirname, '/config');
 const configFiles = fs.readdirSync(configDir);
@@ -19,7 +22,7 @@ configFiles.forEach(file => {
     }
 });
 
-const { rateLimit } = require('express-rate-limit')
+// Rate limiting
 
 const selectiveLimiter = rateLimit({
 	windowMs: config.rateLimits.selective.windowMs,
@@ -39,7 +42,6 @@ const universalLimiter = rateLimit({
   legacyHeaders: config.rateLimits.universal.legacyHeaders,
 })
 
-
 if(config.rateLimits.rateLimitBypass == false){
   console.log("✉️ [API] | Rate limiting enabled")
   app.use('/api/universal/v1', universalLimiter, function(req, res, next) {
@@ -53,7 +55,7 @@ if(config.rateLimits.rateLimitBypass == false){
   console.log("✉️ [API] | Rate limiting disabled")
 }
 
-
+// Express App Configurations
 app.use(express.static(path.join(__dirname, process.env.DIR)));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -71,7 +73,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
 app.listen(process.env.PORT, () => {
   console.log(`Running on localhost:${process.env.PORT}
   \n   _____           _    __      _ _                 
@@ -85,9 +86,18 @@ app.listen(process.env.PORT, () => {
   Views Directory: ${process.env.DIR}
   Database Setup: ${(process.env.dbName && process.env.dbUsername && process.env.dbHost && process.env.dbPassword) ? "Yes" : "No"}`);
 });
-
+// Load external directories (apis)
 require("./api/signup.js")(app);
 require("./api/login.js")(app);
 require("./api/universal/getUserFromCookie.js")(app);
 require("./api/portfolio.js")(app);
 require("./api/getPortfolio.js")(app);
+
+// Handle errors
+app.use('*', (req, res, next) => {
+  if (req.method === 'GET') {
+    res.status(404).sendFile(path.join(__dirname, process.env.DIR, '/error/404/index.html'));
+  } else {
+    next();
+  }
+});
