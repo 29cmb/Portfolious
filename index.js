@@ -86,12 +86,18 @@ app.listen(process.env.PORT, () => {
   Views Directory: ${process.env.DIR}
   Database Setup: ${(process.env.dbName && process.env.dbUsername && process.env.dbHost && process.env.dbPassword) ? "Yes" : "No"}`);
 });
-// Load external directories (apis)
-require("./api/signup.js")(app);
-require("./api/login.js")(app);
-require("./api/universal/getUserFromCookie.js")(app);
-require("./api/portfolio.js")(app);
-require("./api/getPortfolio.js")(app);
+
+// API Routes
+fs.readdirSync(path.join(__dirname, 'api')).forEach(file => {
+  if (path.extname(file) === '.js') {
+      require(`./api/${file}`)(app);
+  }
+});
+fs.readdirSync(path.join(__dirname, 'api/universal')).forEach(file => {
+  if (path.extname(file) === '.js') {
+      require(`./api/universal/${file}`)(app);
+  }
+});
 
 // Handle errors
 app.use('*', (req, res, next) => {
