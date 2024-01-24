@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Kanit:wght@500&display=swap');
 
 * {
     font-family: 'Kanit', sans-serif;
@@ -94,4 +94,55 @@ p {
 input {
     margin-bottom: 7px;
     text-align: center;
+}
+
+.signupFrame {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.signupFrame input[type="email"],
+.signupFrame input[type="text"],
+.signupFrame input[type="password"] {
+    font-family: 'Inter', sans-serif;
+    width: 100%;
+    padding: 10px;
+    margin: 4px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Add this line */
+}
+
+.signupFrame input[type="submit"] {
+    margin: 14px 0;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #434343;
+    color: white;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.signupFrame input[type="submit"]:hover {
+    background-color: #1c1c1c;
+    transition: all 0.25s ease;
+}
+
+.password-container {
+    position: relative;
+}
+
+.password-container i {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.password-container i:hover {
+    color: #000;
 }

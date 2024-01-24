@@ -1,0 +1,10 @@
+{
+    "debugUniversal": {
+        "sendErrors": true,
+        "sendStatus": false
+    },
+    "debugSelective": {
+        "sendErrors": true,
+        "sendStatus": false
+    }
+}
