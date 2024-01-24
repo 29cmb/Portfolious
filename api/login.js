@@ -2,9 +2,7 @@ const crypto = require("node:crypto")
 module.exports = function(app, debug){
     require('dotenv').config();
     app.post('/api/v1/login', function(req, res){
-        if(debug.sendStatus){
-            console.log(`📫 [API] | /login posted`)
-        }
+        if(debug.sendStatus) console.log(`📫 [API] | /login posted`)
         const db = require("../db.js")
         const { username, password } = req.body
 

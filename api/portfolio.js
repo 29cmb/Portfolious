@@ -2,9 +2,8 @@ const path = require('path')
 module.exports = function(app, debug){
     require('dotenv').config();
     app.get("/portfolio/:id/view", function(req, res){
-        if(debug.sendStatus){
-            console.log(`📫 [API] | /portfolio/:id/view requested`)
-        }
+        if(debug.sendStatus) console.log(`📫 [API] | /portfolio/:id/view requested`)
+        
         const id = req.params.id;
         const db = require("../db.js");
 

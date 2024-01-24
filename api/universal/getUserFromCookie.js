@@ -1,8 +1,6 @@
 module.exports = function(app, debug){
     app.post('/api/universal/v1/getUserFromCookie', function(req, res){
-        if(debug.sendStatus){
-            console.log(`📫 [API] | /universal/getUserFromCookie posted`)
-        }
+        if(debug.sendStatus) console.log(`📫 [API] | /universal/getUserFromCookie posted`)
         var { cookie } = req.body
         
         const db = require("../../db.js")
