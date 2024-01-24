@@ -1,6 +1,8 @@
-module.exports = function(app){
+module.exports = function(app, debug){
     app.post('/api/universal/v1/getUserFromCookie', function(req, res){
-        console.log(`📫 [API] | /universal/getUserFromCookie posted`)
+        if(debug.sendStatus){
+            console.log(`📫 [API] | /universal/getUserFromCookie posted`)
+        }
         var { cookie } = req.body
         
         const db = require("../../db.js")
@@ -13,11 +15,12 @@ module.exports = function(app){
 
         db.getConnection(function(err,connection){
             if (err) {
-                console.log(`💣 [API] | Error connecting to the database. ${err}`)
+                if(debug.sendErrors) console.log(`💣 [API] | Error connecting to the database. ${err}`)
+                return res.status(500).json({ success: false, message: 'Database error' });
             }
             db.query(`SELECT * FROM UserDatabase WHERE session = ?`, [cookie], function(error, results){
                 if (error) {
-                    console.log(`💣 [API] | A database error has occurred and checking has failed. ${error}`)
+                    if(debug.sendErrors) console.log(`💣 [API] | A database error has occurred and checking has failed. ${error}`)
                     return res.status(500).json({ success: false, message: 'Database error' });
                 }
 

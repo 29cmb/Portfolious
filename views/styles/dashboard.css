@@ -195,3 +195,19 @@ p {
     font-size: 20px;
     transition: all 0.5 ease;
 }
+
+/* .main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+}
+/* .main .fas.fa-arrow-left {
+    position: absolute;
+    left: 5px;
+}
+
+.main .fas.fa-arrow-right {
+    position: absolute;
+    right: 5px;
+} */

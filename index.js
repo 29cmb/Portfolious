@@ -90,12 +90,12 @@ app.listen(process.env.PORT, () => {
 // API Routes
 fs.readdirSync(path.join(__dirname, 'api')).forEach(file => {
   if (path.extname(file) === '.js') {
-      require(`./api/${file}`)(app);
+      require(`./api/${file}`)(app, config.development.debugSelective);
   }
 });
 fs.readdirSync(path.join(__dirname, 'api/universal')).forEach(file => {
   if (path.extname(file) === '.js') {
-      require(`./api/universal/${file}`)(app);
+      require(`./api/universal/${file}`)(app, config.development.debugUniversal);
   }
 });
 
