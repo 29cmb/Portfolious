@@ -1,38 +1,61 @@
+// Packages
 const express = require('express');
 const path = require('path')
 const bodyParser = require('body-parser');
 const app = express();
-require("dotenv").config()
-
 const { rateLimit } = require('express-rate-limit')
+require("dotenv").config()
+const fs = require('fs');
+
+// JSON Configurations
+
+const configDir = path.join(__dirname, '/config');
+const configFiles = fs.readdirSync(configDir);
+const config = {};
+
+configFiles.forEach(file => {
+    if (path.extname(file) === '.json') {
+        const filePath = path.join(configDir, file);
+        const fileData = fs.readFileSync(filePath, 'utf8');
+        const fileNameWithoutExt = path.basename(file, '.json');
+        config[fileNameWithoutExt] = JSON.parse(fileData);
+    }
+});
+
+// Rate limiting
 
 const selectiveLimiter = rateLimit({
-	windowMs: 60 * 1000,
-	max: 15, 
-	standardHeaders: true, 
-	legacyHeaders: false,
+	windowMs: config.rateLimits.selective.windowMs,
+	max: config.rateLimits.selective.max, 
+	standardHeaders: config.rateLimits.selective.standardHeaders, 
+	legacyHeaders: config.rateLimits.selective.legacyHeaders,
   message: function(req, res, next) {
-    console.log(`✉️ [API] | User is being rate limited by selectiveLimiter`)
-    return res.json({ success: false, message: "You are sending too many requests. Please try again later." });
+    console.log(config.rateLimits.selective.consoleMessage)
+    return res.json({ success: false, message: config.rateLimits.selective.jsonError });
   }
 })
 
 const universalLimiter = rateLimit({
-  windowMs: 60 * 1000,
-  max: 35,
-  standardHeaders: true,
-  legacyHeaders: false,
+  windowMs: config.rateLimits.universal.windowMs,
+  max: config.rateLimits.universal.max,
+  standardHeaders: config.rateLimits.universal.standardHeaders,
+  legacyHeaders: config.rateLimits.universal.legacyHeaders,
 })
 
-app.use('/api/universal/v1', universalLimiter, function(req, res, next) {
-  if (req.rateLimit.remaining === 0) {
-      console.log(`✉️ [API] | User is being rate limited by universalLimiter`)
-      return res.sendFile(path.join(__dirname, process.env.DIR, "/error/429/index.html"))
-  }
-  next();
-});
-app.use('/api/v1', selectiveLimiter)
+if(config.rateLimits.rateLimitBypass == false){
+  console.log("✉️ [API] | Rate limiting enabled")
+  app.use('/api/universal/v1', universalLimiter, function(req, res, next) {
+    if (req.rateLimit.remaining === 0) {
+      console.log(config.rateLimits.universal.consoleMessage)
+    }
+    next();
+  });
+  app.use('/api/v1', selectiveLimiter)
+} else {
+  console.log("✉️ [API] | Rate limiting disabled")
+}
 
+// Express App Configurations
 app.use(express.static(path.join(__dirname, process.env.DIR)));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -50,7 +73,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
 app.listen(process.env.PORT, () => {
   console.log(`Running on localhost:${process.env.PORT}
   \n   _____           _    __      _ _                 
@@ -65,8 +87,23 @@ app.listen(process.env.PORT, () => {
   Database Setup: ${(process.env.dbName && process.env.dbUsername && process.env.dbHost && process.env.dbPassword) ? "Yes" : "No"}`);
 });
 
-require("./api/signup.js")(app);
-require("./api/login.js")(app);
-require("./api/universal/getUserFromCookie.js")(app);
-require("./api/portfolio.js")(app);
-require("./api/getPortfolio.js")(app);
+// API Routes
+fs.readdirSync(path.join(__dirname, 'api')).forEach(file => {
+  if (path.extname(file) === '.js') {
+      require(`./api/${file}`)(app, config.development.debugSelective);
+  }
+});
+fs.readdirSync(path.join(__dirname, 'api/universal')).forEach(file => {
+  if (path.extname(file) === '.js') {
+      require(`./api/universal/${file}`)(app, config.development.debugUniversal);
+  }
+});
+
+// Handle errors
+app.use('*', (req, res, next) => {
+  if (req.method === 'GET') {
+    res.status(404).sendFile(path.join(__dirname, process.env.DIR, '/error/404/index.html'));
+  } else {
+    next();
+  }
+});

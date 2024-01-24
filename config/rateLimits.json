@@ -1,0 +1,18 @@
+{
+    "rateLimitBypass": false,
+    "selective": {
+        "windowMs": 60000,
+        "max": 15,
+        "standardHeaders": true, 
+	    "legacyHeaders": false,
+        "jsonError": "You are sending too many requests. Please try again later.",
+        "consoleMessage": "✉️ [API] | User is being rate limited by selectiveLimiter"
+    },
+    "universal": {
+        "windowMs": 60000,
+        "max": 35,
+        "standardHeaders": true, 
+	    "legacyHeaders": false,
+        "consoleMessage": "✉️ [API] | User is being rate limited by universalLimiter"
+    }
+}

@@ -29,7 +29,10 @@
     <form class="signupFrame" onsubmit="login(event)">
         <input type="text" placeholder="Email/Username" id="username" name="username" required>
         <br>
-        <input type="password" placeholder="Password" id="password" name="password" required>
+        <div class="password-container">
+            <input type="password" placeholder="Password" id="password" name="password" required>
+            <i class="fa fa-eye-slash" id="togglePassword"></i>
+        </div>
         <br>
         <input type="submit">
     </form>
@@ -44,4 +47,35 @@
         <p>Cmb Productions</p>
     </div>
 </body>
+<script>
+    document.getElementById('togglePassword').addEventListener('click', function (e) {
+    const passwordInput = document.getElementById('password');
+    const toggleIcon = e.target;
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleIcon.className = 'fa-solid fa-eye';
+    } else {
+        passwordInput.type = 'password';
+        toggleIcon.className = 'fa-solid fa-eye-slash';
+    }
+});
+
+document.getElementById('togglePassword').addEventListener('mouseover', function (e) {
+    const toggleIcon = e.target;
+    if (toggleIcon.classList.contains('fa-eye')) {
+        toggleIcon.className = 'fa-solid fa-eye';
+    } else {
+        toggleIcon.className = 'fa-solid fa-eye-slash';
+    }
+});
+
+document.getElementById('togglePassword').addEventListener('mouseout', function (e) {
+    const toggleIcon = e.target;
+    if (toggleIcon.classList.contains('fa-eye')) {
+        toggleIcon.className = 'fa-regular fa-eye';
+    } else {
+        toggleIcon.className = 'fa-regular fa-eye-slash';
+    }
+});
+</script>
 </html>
