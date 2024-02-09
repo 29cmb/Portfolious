@@ -5,12 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
     <script src="../js/universal/check.js"></script>
+    <script src="../js/universal/loader.js"></script>
     <script>
-     var response = runLoginCheck();
-      if(response === false){
-        window.location.href = "/login.html"
-      }
+        function run(){
+            setTimeout(async () => {
+                var response = await runLoginCheck();
+                if(response === false){
+                    window.location.href = "/login.html"
+                } else {
+                    disableLoader();
+                }
+            }, 200)
+        }
+        run()
     </script>
+    <link href="/uiverseStyles/LoaderByalexruix.css" rel="stylesheet">
     <link href="/styles/dashboard.css" rel="stylesheet" />
     <script
       src="https://kit.fontawesome.com/216730d71d.js"
@@ -23,6 +32,7 @@
   />
   </head>
   <body>
+    <div class="loader"><div class="cell d-0"></div><div class="cell d-1"></div><div class="cell d-2"></div><div class="cell d-1"></div><div class="cell d-2"></div><div class="cell d-2"></div><div class="cell d-3"></div><div class="cell d-3"></div><div class="cell d-4"></div></div>
     <div class="container">
       <div class="content">
         <div class="topbar">

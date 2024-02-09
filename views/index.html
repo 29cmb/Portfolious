@@ -4,17 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolious</title>
+    <link rel="stylesheet" href="/uiverseStyles/LoaderByalexruix.css">
     <link href="/styles/index.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/216730d71d.js" crossorigin="anonymous"></script>
     <script src="/js/universal/check.js"></script>
     <script src="/js/packages/particles.min.js"></script>
+    <script src="/js/universal/loader.js"></script>
+    
     <script>
         async function run(){
-            var response = await runLoginCheck();
-            if(response == true){
-                document.getElementById("login").style.display = "none";
-                document.getElementById("dashboard").style.display = "block";
-            }
+            setTimeout(async () => {
+                var response = await runLoginCheck();
+                if(response == true){
+                    document.getElementById("login").style.display = "none";
+                    document.getElementById("dashboard").style.display = "block";
+                }
+                disableLoader()
+            }, 1000)
         }
 
         run()
@@ -22,6 +28,7 @@
     </script>
 </head>
 <body>
+    <div class="loader"><div class="cell d-0"></div><div class="cell d-1"></div><div class="cell d-2"></div><div class="cell d-1"></div><div class="cell d-2"></div><div class="cell d-2"></div><div class="cell d-3"></div><div class="cell d-3"></div><div class="cell d-4"></div></div>
     <div class="topbar">
         <a id="Home" href="/" class="selected">Home</a>
         <a id="login" href="/login.html">Log in</a>
@@ -41,8 +48,11 @@
     </div>
 </body>
 <script>
-    particlesJS.load('particles', 'configuration/particles.json', function() {
-        console.log('callback - particles.js config loaded');
-    });
+    setTimeout(() => {
+        particlesJS.load('particles', 'configuration/particles.json', function() {
+            console.log('callback - particles.js config loaded');
+        });
+    }, 1200)
+    
 </script>
 </html>

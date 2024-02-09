@@ -9,6 +9,10 @@ h1,h2,h3,h4,h5,h6,p {
     color: white;
 }
 
+body > *:not(.loader) {
+    display: none;
+} 
+
 body {
     margin: 0;
     background-color: rgb(31, 31, 31);
