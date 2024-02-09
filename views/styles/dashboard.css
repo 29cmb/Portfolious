@@ -2,10 +2,16 @@
 
 * {
     font-family: 'Kanit', sans-serif;
+    
+}
+
+h1,h2,h3,h4,h5,h6,p {
+    color: white;
 }
 
 body {
     margin: 0;
+    background-color: rgb(31, 31, 31);
 }
 
 .container {
@@ -29,8 +35,7 @@ body {
 
 
 .content {
-    width: calc(100% - 200px); /* This should match the width of the sidebar */
-    /* Add other styles as needed */
+    width: calc(100% - 200px);
 }
 
 .topbar {
@@ -47,7 +52,6 @@ body {
 .bottombar {
     background-color: #3b3b3b;
     overflow: hidden;
-    position: fixed;
     bottom: 0;
     width: 100%;
     display: flex;
@@ -211,3 +215,4 @@ p {
     position: absolute;
     right: 5px;
 } */
+

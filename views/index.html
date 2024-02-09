@@ -7,6 +7,7 @@
     <link href="/styles/index.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/216730d71d.js" crossorigin="anonymous"></script>
     <script src="/js/universal/check.js"></script>
+    <script src="/js/packages/particles.min.js"></script>
     <script>
         async function run(){
             var response = await runLoginCheck();
@@ -26,8 +27,11 @@
         <a id="login" href="/login.html">Log in</a>
         <a id="dashboard" style="float:right;display:none;" href="/dashboard">Dashboard</a>
     </div>
-    <h1 id="Title">Portfolious</h1>
-    <p>A easy-to-use tool to create portfolios for your projects</p>
+    <div id="container">
+        <div id="particles"></div>
+        <h1 id="Title">Portfolious</h1>
+        <p>A easy-to-use tool to create portfolios for your projects</p>
+    </div>
     <div class="bottombar">
         <div class="social-icons">
             <a href="https://twitter.com/DevCmb"><i class="fa-brands fa-twitter"></i></a>
@@ -36,4 +40,9 @@
         <p>Cmb Productions</p>
     </div>
 </body>
+<script>
+    particlesJS.load('particles', 'configuration/particles.json', function() {
+        console.log('callback - particles.js config loaded');
+    });
+</script>
 </html>
