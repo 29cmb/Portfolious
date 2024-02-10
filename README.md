@@ -1,11 +1,10 @@
 So yea, this is a thing
 
 # How to host yourself
-To host, run the following commands in console
+To host, run the installation commands in console
 
 ```
 npm i
-npm start
 ```
 
 Now its hosted on https://localhost:3000
@@ -13,7 +12,7 @@ Now its hosted on https://localhost:3000
 You have set up the frontend part just using those commands, hooray! But you still need to set up the backend
 
 #### Step 1
-Download an apache + mysql server host. I preferrably use [xampp](https://www.apachefriends.org/) which has a configurable apache and mysql server dashboard which is easy to set up
+Download an apache + mysql server host. I preferably use [xampp](https://www.apachefriends.org/) which has a configurable apache and mysql server dashboard which is easy to set up
 #### Step 2
 ***All following steps are based on xampp***
 
@@ -60,6 +59,10 @@ apininjas="apiNinjasAPIKey"
 
 Congrats, you've successfully set up the backend and you now have a fully set up server.
 
+Now, run the startup command below to start your server
+```
+npm start
+```
 
 ### Suggest changes in the issues and pull requests tab
 
