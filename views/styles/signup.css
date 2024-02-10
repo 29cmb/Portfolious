@@ -168,6 +168,13 @@ input {
     color: white;
 }
 
+.password-container i.light-theme {
+    color: white;
+}
+.password-container i.dark-theme {
+    color: black
+}
+
 .password-container i:hover {
     color: #ffffff;
 }
