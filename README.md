@@ -39,21 +39,16 @@ $cfg['Servers'][$i]['password'] = 'yourNewPassword';
 ```
 
 #### Step 5
-In the project files, create a .env file and fill out the information
+In the project files, rename the `.env.dist` to `.env` and edit the values below
+
+```env
+dbPassword=""
+secret=""
+cookieSecret=""
+
+apininjas=""
 ```
-PORT=3000 # do not change
-DIR="views" # do not change
 
-dbHost="localhost" # do not change
-dbName="portfolious" # do not change
-dbUsername="root" # do not change
-dbPassword="passwordToTheDatabase"
-secret="secretToUseForPasswordHashing"
-cookieSecret="secretToUseForSessionCookieHashing"
-
-
-apininjas="apiNinjasAPIKey"
-```
 **[API NINJAS](https://api-ninjas.com/) - YOU MUST HAVE A VALID API KEY**
 
 

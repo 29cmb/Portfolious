@@ -84,7 +84,9 @@ app.listen(process.env.PORT, () => {
                                                     
   Created by DevCmb
   Views Directory: ${process.env.DIR}
-  Database Setup: ${(process.env.dbName && process.env.dbUsername && process.env.dbHost && process.env.dbPassword) ? "Yes" : "No"}`);
+  Database Setup: ${(process.env.dbName && process.env.dbUsername && process.env.dbHost && process.env.dbPassword && process.env.databasePort) ? "✅" : "❌"}
+  API Setup: ${(process.env.apininjas) ? "✅" : "❌"}
+  Secret Key Setup: ${(process.env.secret && process.env.cookieSecret) ? "✅" : "❌"}`);
 });
 
 // API Routes
