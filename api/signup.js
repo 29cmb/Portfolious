@@ -121,5 +121,10 @@ function checkValidation(email, username, password, res) {
         return false
     }
 
+    if (require("../config/domainSignupBlocklist.json").includes(email.split("@")[1])){
+        res.status(400).json({ success: false, message: "Temporary email detected, please use a personal email."})
+        return false
+    }
+
     return true
 }
